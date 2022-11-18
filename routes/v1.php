@@ -15,5 +15,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
 
 });
-
-$router->get('vaults', [VaultsController::class, 'getvaults']);
+$router->group(['prefix' => 'vaults'], function () use ($router) {
+    $router->get('/', [VaultsController::class, 'getvaults']);
+    $router->get('detail/graph/{id}', [VaultsController::class, 'getVaultGraph']);
+});
