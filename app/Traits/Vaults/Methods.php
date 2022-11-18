@@ -28,7 +28,9 @@ trait Methods
         $myArray = array(
             array(
                 'tvl' =>'tvl',
-                'name'=>'first',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
                 'total_value'=>'4',
                 'social_meter' =>1,
                 'copiers' =>1,
@@ -62,7 +64,9 @@ trait Methods
             ),
             array(
                 'tvl' =>'tvl',
-                'name'=>'second',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
                 'total_value'=>'4',
                 'social_meter' =>2,
                 'copiers' => 1,
@@ -96,7 +100,9 @@ trait Methods
             ),
             array(
                 'tvl' =>'tvl',
-                'name'=>'third',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
                 'total_value'=>'4',
                 'social_meter' =>3,
                 'copiers' => 1,
@@ -130,7 +136,9 @@ trait Methods
             ), 
             array(
                 'tvl' =>'tvl',
-                'name'=>'fourth',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
                 'total_value'=>'4',
                 'social_meter' =>4,
                 'copiers' => 0,
