@@ -69,6 +69,26 @@ class VaultsController extends Controller{
             return errorResponse($e->getMessage(), HTTP_STATUS_SERVER_ERROR, HTTP_ERROR_CODE, __FUNCTION__);
         }
     }
+
+   /**
+     * Get Vault Detail Transaction.
+     * Author: Geetanjali Sharma
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getVaultTransaction(Request $request){
+        try {
+            $data = Vaults::getVaultTransaction($request);
+            if (!$data) {
+                return errorResponse('Data Not Found', HTTP_STATUS_NOT_FOUND, HTTP_ERROR_CODE);
+            } else {
+                return successResponse('Data Found Successfully', HTTP_STATUS_OK, $data);
+            }
+        } catch (\Exception $e) {
+            return errorResponse($e->getMessage(), HTTP_STATUS_SERVER_ERROR, HTTP_ERROR_CODE, __FUNCTION__);
+        }
+    }
+    
     
  
 }
