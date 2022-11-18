@@ -16,17 +16,13 @@ use function PHPUnit\Framework\returnCallback;
 
 trait Methods
 {
-    public static function paginate($items, $perPage = 1, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-    }
+    
     Public static function getVaultData($request){
         $limit = $request->limit;
              
         $myArray = array(
             array(
+                'id'=>1,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
                 'vault_name'=>'napfton',
@@ -63,6 +59,7 @@ trait Methods
                 ),
             ),
             array(
+                'id'=>2,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
                 'vault_name'=>'napfton',
@@ -99,6 +96,7 @@ trait Methods
                 ),
             ),
             array(
+                'id'=>3,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
                 'vault_name'=>'napfton',
@@ -135,6 +133,7 @@ trait Methods
                 ),
             ), 
             array(
+                'id'=>4,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
                 'vault_name'=>'napfton',
@@ -179,6 +178,1355 @@ trait Methods
        
 
     }
+    Public static function getVaultGraph($request){
+       
+             
+        $myArray = array(
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'7D',
+                'icon' =>url('images/icon.png'),              
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2021-01-02'
+                    ),
+                    array(
+                        "x"=>90,
+                        "y"=>'2021-01-03'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-04'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2021-01-05'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-07'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'3M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ), 
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1yr',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'ytd',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-02-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-03-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-04-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-05-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2022-06-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-07-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-08-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-09-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-10-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-11-01'
+                    ),
+                    
+                ),
+            ),
+            array(
+                'id'=>1,
+                'vault_name'=>'napfton',
+                'time_difference' =>'all',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2019-06-06'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2020-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-06-01'
+                    ),
+                   
+                    
+                ),
+            ),
+            //second record
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'7D',
+                'icon' =>url('images/icon.png'),              
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2021-01-02'
+                    ),
+                    array(
+                        "x"=>90,
+                        "y"=>'2021-01-03'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-04'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2021-01-05'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-07'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'3M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ), 
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1yr',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'ytd',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-02-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-03-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-04-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-05-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2022-06-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-07-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-08-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-09-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-10-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-11-01'
+                    ),
+                    
+                ),
+            ),
+            array(
+                'id'=>2,
+                'vault_name'=>'napfton',
+                'time_difference' =>'all',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2019-06-06'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2020-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-06-01'
+                    ),
+                   
+                    
+                ),
+            ),
+            //third record
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'7D',
+                'icon' =>url('images/icon.png'),              
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2021-01-02'
+                    ),
+                    array(
+                        "x"=>90,
+                        "y"=>'2021-01-03'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-04'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2021-01-05'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-07'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'3M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ), 
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1yr',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'ytd',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-02-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-03-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-04-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-05-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2022-06-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-07-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-08-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-09-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-10-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-11-01'
+                    ),
+                    
+                ),
+            ),
+            array(
+                'id'=>3,
+                'vault_name'=>'napfton',
+                'time_difference' =>'all',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2019-06-06'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2020-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-06-01'
+                    ),
+                   
+                    
+                ),
+            ),
+            //Fourth Record
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'7D',
+                'icon' =>url('images/icon.png'),              
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2021-01-02'
+                    ),
+                    array(
+                        "x"=>90,
+                        "y"=>'2021-01-03'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2021-01-04'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2021-01-05'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-07'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'3M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ), 
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'6M',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'1yr',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2021-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'ytd',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-02-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-03-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-04-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-05-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2022-06-01'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-07-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-08-01'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2022-09-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2022-10-01'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2022-11-01'
+                    ),
+                    
+                ),
+            ),
+            array(
+                'id'=>4,
+                'vault_name'=>'napfton',
+                'time_difference' =>'all',
+                'icon' =>url('images/icon.png'),
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2019-06-06'
+                    ),
+                    array(
+                        "x"=>30,
+                        "y"=>'2020-01-01'
+                    ),
+                    array(
+                        "x"=>40,
+                        "y"=>'2020-01-06'
+                    ),
+                    array(
+                        "x"=>50,
+                        "y"=>'2021-01-01'
+                    ),
+                    array(
+                        "x"=>60,
+                        "y"=>'2021-01-06'
+                    ),
+                    array(
+                        "x"=>70,
+                        "y"=>'2022-01-01'
+                    ),
+                    array(
+                        "x"=>20,
+                        "y"=>'2022-06-01'
+                    ),
+                   
+                    
+                ),
+            ),
+        );
+               
+        $filteredArray = self::filterArray($myArray, ['id'=>(int)$request->id,'time_difference' => $request->time_difference]);
+        return $filteredArray;
+       
+
+    }
+    
+    Public static function getVaultAssets($request){
+
+        $asset_info = array(
+            array(
+                'id'=>1,
+                'assets_under_management'=>'1000',
+                'average_monthly_return' =>'2.56',
+                'denomination_asset'=>'Binance pegged USDT',
+                'management_fee' =>'1',     
+                'amount_of_depositors' =>'42586',
+                'profit_loss'=>'5421.43',
+                'min_deposit_amount' =>'150', 
+                'management_fee' =>'15',             
+             
+            ),
+            array(
+                'id'=>2,
+                'assets_under_management'=>'1000',
+                'average_monthly_return' =>'2.56',
+                'denomination_asset'=>'Binance pegged USDT',
+                'management_fee' =>'1',     
+                'amount_of_depositors' =>'42586',
+                'profit_loss'=>'5421.43',
+                'min_deposit_amount' =>'150', 
+                'management_fee' =>'15',             
+             
+            ),
+            array(
+                'id'=>3,
+                'assets_under_management'=>'1000',
+                'average_monthly_return' =>'2.56',
+                'denomination_asset'=>'Binance pegged USDT',
+                'management_fee' =>'1',     
+                'amount_of_depositors' =>'42586',
+                'profit_loss'=>'5421.43',
+                'min_deposit_amount' =>'150', 
+                'management_fee' =>'15',             
+             
+            ),
+            array(
+                'id'=>4,
+                'assets_under_management'=>'1000',
+                'average_monthly_return' =>'2.56',
+                'denomination_asset'=>'Binance pegged USDT',
+                'management_fee' =>'1',     
+                'amount_of_depositors' =>'42586',
+                'profit_loss'=>'5421.43',
+                'min_deposit_amount' =>'150', 
+                'management_fee' =>'15',             
+             
+            )
+        );
+
+        $filteredArray = self::filterArray($asset_info, ['id'=>(int)$request->id]);
+        return $filteredArray;
+
+
+    }
     public static function filterArray(array $products, array $filter = []): array
     {
         
@@ -196,6 +1544,12 @@ trait Methods
         }
         
         return $result;
+    }
+    public static function paginate($items, $perPage = 1, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
     
   
