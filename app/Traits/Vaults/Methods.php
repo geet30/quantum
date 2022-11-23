@@ -168,10 +168,187 @@ trait Methods
                         "y"=>'2019-01-01'
                     ),
                 ),
+            ),
+            array(
+                'id'=>5,
+                'tvl' =>'tvl',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>'4',
+                'social_meter' =>1,
+                'copiers' =>1,
+                'verified' =>1,
+                'roidollar' =>'23',
+                'roicoin' =>'24',
+                'dollar_percentage' =>'10',
+                'coin_percentage' =>'10',
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>6,
+                'tvl' =>'tvl',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>'4',
+                'social_meter' =>2,
+                'copiers' => 1,
+                'verified' =>0,
+                'roidollar' =>'23',
+                'roicoin' =>'24',
+                'dollar_percentage' =>'10',
+                'coin_percentage' =>'10',
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ),
+            array(
+                'id'=>7,
+                'tvl' =>'tvl',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>'4',
+                'social_meter' =>3,
+                'copiers' => 1,
+                'verified' =>1,              
+                'roidollar' =>'23',
+                'roicoin' =>'24',
+                'dollar_percentage' =>'10',
+                'coin_percentage' =>'10',
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
+            ), 
+            array(
+                'id'=>8,
+                'tvl' =>'tvl',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>'4',
+                'social_meter' =>4,
+                'copiers' => 0,
+                'verified' =>1,             
+                'roidollar' =>'23',
+                'roicoin' =>'24',
+                'dollar_percentage' =>'10',
+                'coin_percentage' =>'10',
+                'graph' =>array (
+                    array(
+                        "x"=>10,
+                        "y"=>'2015-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2016-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2017-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2018-01-01'
+                    ),
+                    array(
+                        "x"=>10,
+                        "y"=>'2019-01-01'
+                    ),
+                ),
             )
         );
-               
-        $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
+        if(isset($request->verified) && !empty($request->verified)){
+
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
+        } 
+        if(isset($request->copiers) && !empty($request->copiers)){
+
+            $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers]);
+        } 
+        if(isset($request->social_meter) && !empty($request->social_meter)){
+
+            $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
+        } 
+        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers)){
+
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers]);
+        } 
+        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers) && isset($request->social_meter) && !empty($request->social_meter)){
+
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
+        } 
+
+        if(isset($request->verified) && !empty($request->verified)  && isset($request->social_meter) && !empty($request->social_meter)){
+
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
+        } 
+        if(isset($request->copiers) && !empty($request->copiers)  && isset($request->social_meter) && !empty($request->social_meter)){
+
+            $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
+        } 
+
+       
       
         $data = self::paginate($filteredArray,$limit);
         return $data;
@@ -1478,6 +1655,7 @@ trait Methods
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
+                'in_profit'=>'yes',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
@@ -1490,6 +1668,7 @@ trait Methods
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
+                'in_profit'=>'no',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
@@ -1502,6 +1681,7 @@ trait Methods
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
+                'in_profit'=>'yes',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
@@ -1514,6 +1694,7 @@ trait Methods
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
+                'in_profit'=>'no',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
@@ -2325,6 +2506,7 @@ trait Methods
         
         return $result;
     }
+
     public static function paginate($items, $perPage = 1, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
