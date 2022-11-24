@@ -88,20 +88,20 @@ trait Methods
                         "y"=>'2015-01-01'
                     ],
                     [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
+                        "x"=>60,
+                        "y"=>'2019-01-01'
                     ],
                     [
                         "x"=>10,
                         "y"=>'2017-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>70,
                         "y"=>'2018-01-01'
                     ],
                     [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
+                        "x"=>80,
+                        "y"=>'2015-01-01'
                     ],
                 ],
             ],
@@ -121,15 +121,15 @@ trait Methods
                 'coin_percentage' =>'10',
                 'graph' =>[
                     [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
+                        "x"=>20,
+                        "y"=>'2019-01-01'
                     ],
                     [
                         "x"=>10,
                         "y"=>'2016-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>70,
                         "y"=>'2017-01-01'
                     ],
                     [
@@ -138,7 +138,7 @@ trait Methods
                     ],
                     [
                         "x"=>10,
-                        "y"=>'2019-01-01'
+                        "y"=>'2015-01-01'
                     ],
                 ],
             ], 
@@ -158,8 +158,8 @@ trait Methods
                 'coin_percentage' =>'10',
                 'graph' =>[
                     [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
+                        "x"=>90,
+                        "y"=>'2018-01-01'
                     ],
                     [
                         "x"=>10,
@@ -171,7 +171,7 @@ trait Methods
                     ],
                     [
                         "x"=>10,
-                        "y"=>'2018-01-01'
+                        "y"=>'2015-01-01'
                     ],
                     [
                         "x"=>10,
@@ -196,22 +196,22 @@ trait Methods
                 'graph' =>[
                     [
                         "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
                         "y"=>'2016-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>40,
                         "y"=>'2017-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>50,
+                        "y"=>'2015-01-01'
+                    ],
+                    [
+                        "x"=>70,
                         "y"=>'2018-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>80,
                         "y"=>'2019-01-01'
                     ],
                 ],
@@ -233,22 +233,22 @@ trait Methods
                 'graph' =>[
                     [
                         "x"=>10,
-                        "y"=>'2015-01-01'
+                        "y"=>'2017-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>20,
                         "y"=>'2016-01-01'
                     ],
                     [
                         "x"=>10,
-                        "y"=>'2017-01-01'
+                        "y"=>'2015-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>40,
                         "y"=>'2018-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>60,
                         "y"=>'2019-01-01'
                     ],
                 ],
@@ -270,22 +270,22 @@ trait Methods
                 'graph' =>[
                     [
                         "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
                         "y"=>'2016-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>20,
+                        "y"=>'2015-01-01'
+                    ],
+                    [
+                        "x"=>50,
                         "y"=>'2017-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>70,
                         "y"=>'2018-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>80,
                         "y"=>'2019-01-01'
                     ],
                 ],
@@ -307,22 +307,22 @@ trait Methods
                 'graph' =>[
                     [
                         "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
                         "y"=>'2016-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>20,
+                        "y"=>'2015-01-01'
+                    ],
+                    [
+                        "x"=>30,
                         "y"=>'2017-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>60,
                         "y"=>'2018-01-01'
                     ],
                     [
-                        "x"=>10,
+                        "x"=>80,
                         "y"=>'2019-01-01'
                     ],
                 ],
@@ -330,33 +330,32 @@ trait Methods
         ];
         $filteredArray = [];
        
-        if(isset($request->verified) && !empty($request->verified)){
-            
+        if(isset($request->verified) && $request->verified!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
-        if(isset($request->copiers) && !empty($request->copiers)){
+        if(isset($request->copiers) && $request->copiers!=''){
 
             $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers]);
         } 
-        if(isset($request->social_meter) && !empty($request->social_meter)){
+        if(isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
         } 
-        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers)){
+        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers]);
         } 
-        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers) && isset($request->social_meter) && !empty($request->social_meter)){
+        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!='' && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
         } 
 
-        if(isset($request->verified) && !empty($request->verified)  && isset($request->social_meter) && !empty($request->social_meter)){
+        if(isset($request->verified) && $request->verified!=''   && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
         } 
-        if(isset($request->copiers) && !empty($request->copiers)  && isset($request->social_meter) && !empty($request->social_meter)){
+        if(isset($request->copiers) && $request->copiers!=''  && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
         } 
@@ -2431,7 +2430,6 @@ trait Methods
         
         return $result;
     }
-
     /** Paginate Array
      * Author: Geetanjali Sharma
      * Company: Crebos Nederland B.V.
@@ -2444,4 +2442,5 @@ trait Methods
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
+    
 }
