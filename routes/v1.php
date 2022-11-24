@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
+header( 'Access-Control-Allow-Headers: *' );
 
 use App\Http\Controllers\V1\Vaults\VaultsController;
 
