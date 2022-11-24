@@ -331,31 +331,32 @@ trait Methods
         $filteredArray = [];
        
         if(isset($request->verified) && $request->verified!=''){
+            
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
-        if(isset($request->copiers) && $request->copiers!=''){
+        if(isset($request->copiers) && !empty($request->copiers)){
 
             $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers]);
         } 
-        if(isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->social_meter) && !empty($request->social_meter)){
 
             $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!=''){
+        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers)){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!='' && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->verified) && !empty($request->verified) && isset($request->copiers) && !empty($request->copiers) && isset($request->social_meter) && !empty($request->social_meter)){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
         } 
 
-        if(isset($request->verified) && $request->verified!=''   && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->verified) && !empty($request->verified)  && isset($request->social_meter) && !empty($request->social_meter)){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
         } 
-        if(isset($request->copiers) && $request->copiers!=''  && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->copiers) && !empty($request->copiers)  && isset($request->social_meter) && !empty($request->social_meter)){
 
             $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
         } 
