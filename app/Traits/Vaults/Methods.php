@@ -12,16 +12,26 @@ use function PHPUnit\Framework\returnCallback;
 /**
 * Vaults Methods model.
 * Author: Geetanjali Sharma
+* Company: Crebos Nederland B.V.
 */
 
 trait Methods
 {
     
+     /**
+     * Get Vault Listing.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     Public static function getVaultData($request){
         $limit = $request->limit;
              
-        $myArray = array(
-            array(
+       
+        $myArray = [
+            [ 
                 'id'=>1,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -35,30 +45,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>2,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -72,30 +82,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>3,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -109,30 +119,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>4,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -146,30 +156,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>5,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -183,30 +193,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>6,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -220,30 +230,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>7,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -257,30 +267,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>8,
                 'tvl' =>'tvl',
                 'icon' =>url('images/icon.png'),
@@ -294,30 +304,30 @@ trait Methods
                 'roicoin' =>'24',
                 'dollar_percentage' =>'10',
                 'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            )
-        );
+                    ],
+                ],
+            ]
+        ];
         if(isset($request->verified) && !empty($request->verified)){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
@@ -355,1300 +365,1173 @@ trait Methods
        
 
     }
+
+     /**
+     * Get Vault Detail Graph.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     Public static function getVaultGraph($request){
        
              
         $myArray = array(
-            array(
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'7D',
                 'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2021-01-02'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>90,
                         "y"=>'2021-01-03'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2021-01-04'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2021-01-05'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'3M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'6M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' => [
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+           
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1yr',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'ytd',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-02-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-03-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-04-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-05-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2022-06-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-07-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-08-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-09-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-10-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-11-01'
-                    ),
+                    ],
                     
-                ),
-            ),
-            array(
+                ]
+            ],
+            [
                 'id'=>1,
                 'vault_name'=>'napfton',
                 'time_difference' =>'all',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2019-06-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2020-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-06-01'
-                    ),
+                    ],
                    
                     
-                ),
-            ),
+                ],
+            ],
             //second record
-            array(
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'7D',
                 'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2021-01-02'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>90,
                         "y"=>'2021-01-03'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2021-01-04'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2021-01-05'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'3M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'6M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' => [
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],         
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1yr',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'ytd',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-02-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-03-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-04-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-05-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2022-06-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-07-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-08-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-09-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-10-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-11-01'
-                    ),
+                    ],
                     
-                ),
-            ),
-            array(
+                ]
+            ],
+            [
                 'id'=>2,
                 'vault_name'=>'napfton',
                 'time_difference' =>'all',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2019-06-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2020-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-06-01'
-                    ),
+                    ],
                    
                     
-                ),
-            ),
+                ],
+            ],
             //third record
-            array(
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'7D',
                 'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2021-01-02'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>90,
                         "y"=>'2021-01-03'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2021-01-04'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2021-01-05'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'3M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'6M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' => [
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],         
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1yr',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'ytd',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-02-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-03-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-04-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-05-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2022-06-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-07-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-08-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-09-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-10-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-11-01'
-                    ),
+                    ],
                     
-                ),
-            ),
-            array(
+                ]
+            ],
+            [
                 'id'=>3,
                 'vault_name'=>'napfton',
                 'time_difference' =>'all',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2019-06-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2020-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-06-01'
-                    ),
+                    ],
                    
                     
-                ),
-            ),
+                ],
+            ],
             //Fourth Record
-            array(
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'7D',
                 'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2021-01-02'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>90,
                         "y"=>'2021-01-03'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2021-01-04'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2021-01-05'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ]
+            ],
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'3M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
+                    ],
+                ],
+            ], 
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'6M',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' => [
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],         
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'1yr',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2015-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2016-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2017-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2018-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
+                    ],
+                ],
+            ],
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'ytd',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-02-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-03-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-04-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-05-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2022-06-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-07-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-08-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2022-09-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2022-10-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2022-11-01'
-                    ),
+                    ],
                     
-                ),
-            ),
-            array(
+                ]
+            ],
+            [
                 'id'=>4,
                 'vault_name'=>'napfton',
                 'time_difference' =>'all',
                 'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
+                'graph' =>[
+                    [
                         "x"=>10,
                         "y"=>'2019-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2019-06-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>30,
                         "y"=>'2020-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>40,
                         "y"=>'2020-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>50,
                         "y"=>'2021-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>60,
                         "y"=>'2021-01-06'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>70,
                         "y"=>'2022-01-01'
-                    ),
-                    array(
+                    ],
+                    [
                         "x"=>20,
                         "y"=>'2022-06-01'
-                    ),
+                    ],
                    
                     
-                ),
-            ),
+                ],
+            ],
         );
                
         $filteredArray = self::filterArray($myArray, ['id'=>(int)$request->id,'time_difference' => $request->time_difference]);
         return $filteredArray;
        
     }
-    
+    /**
+     * Get Vault Detail Assets.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */ 
+
     Public static function getVaultAssets($request){
 
-        $asset_info = array(
-            array(
+        $asset_info = [
+            [
                 'id'=>1,
                 'assets_under_management'=>'1000',
                 'average_monthly_return' =>'2.56',
@@ -1660,21 +1543,21 @@ trait Methods
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>2,
                 'assets_under_management'=>'1000',
                 'average_monthly_return' =>'2.56',
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
-                'in_profit'=>'no',
+                'in_profit'=>'yes',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'assets_under_management'=>'1000',
                 'average_monthly_return' =>'2.56',
@@ -1686,21 +1569,21 @@ trait Methods
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>4,
                 'assets_under_management'=>'1000',
                 'average_monthly_return' =>'2.56',
                 'denomination_asset'=>'Binance pegged USDT',
                 'management_fee' =>'1',     
                 'amount_of_depositors' =>'42586',
-                'in_profit'=>'no',
+                'in_profit'=>'yes',
                 'profit_loss'=>'5421.43',
                 'min_deposit_amount' =>'150', 
                 'management_fee' =>'15',             
              
-            )
-        );
+            ],
+        ];
 
         $filteredArray = self::filterArray($asset_info, ['id'=>(int)$request->id]);
         return $filteredArray;
@@ -1708,10 +1591,18 @@ trait Methods
 
     }
 
+    /**
+     * Get Vault Detail Transaction.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     Public static function getVaultTransaction($request){
 
-        $arr_info = array(
-            array(
+        $arr_info = [
+            [
                 'id'=>1,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1723,8 +1614,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>1,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1736,8 +1627,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>1,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1749,8 +1640,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>1,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1762,8 +1653,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>1,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1775,9 +1666,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //2nd record
-            array(
+            [
                 'id'=>2,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1789,8 +1680,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>2,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1802,8 +1693,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>2,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1815,8 +1706,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>2,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1828,8 +1719,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>2,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1841,9 +1732,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //3rd record
-            array(
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1855,8 +1746,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1868,8 +1759,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1881,8 +1772,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1894,8 +1785,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1907,8 +1798,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>3,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1920,9 +1811,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //Fourth Record
-            array(
+            [
                 'id'=>4,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1934,8 +1825,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>4,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1947,8 +1838,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>4,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1960,8 +1851,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>4,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1973,8 +1864,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>4,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -1986,9 +1877,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //Fifth Record
-            array(
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2000,8 +1891,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2013,8 +1904,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2026,8 +1917,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2039,8 +1930,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2052,8 +1943,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2065,8 +1956,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>5,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2078,9 +1969,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //sixth Record
-            array(
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2092,8 +1983,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2105,8 +1996,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2118,8 +2009,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2131,9 +2022,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
 
-            array(
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2145,8 +2036,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2158,8 +2049,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>6,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2171,9 +2062,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //seventh record
-            array(
+            [
                 'id'=>7,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2185,9 +2076,35 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
+            [
+                'id'=>7,
+                'transaction_date'=>'3 days ago',
+                'exchange' =>'Buyer234',
+                'trade_type'=>'SELL',
+                'purchase_price' =>'1294',     
+                'trade_coin' =>'42586',
+                'trade_dollar' =>'2586',
+                'second_trade_coin' =>'42586',
+                'second_trade_dollar' =>'2586',
+                'txhash' =>'0gdashgdhasgd3487587',             
+             
+            ],
+            [
+                'id'=>7,
+                'transaction_date'=>'3 days ago',
+                'exchange' =>'Buyer234',
+                'trade_type'=>'SELL',
+                'purchase_price' =>'1294',     
+                'trade_coin' =>'42586',
+                'trade_dollar' =>'2586',
+                'second_trade_coin' =>'42586',
+                'second_trade_dollar' =>'2586',
+                'txhash' =>'0gdashgdhasgd3487587',             
+             
+            ],
             //eighth record
-            array(
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2199,8 +2116,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2212,8 +2129,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2225,9 +2142,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
 
-            array(
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2239,8 +2156,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2252,8 +2169,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>8,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2265,9 +2182,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //nineth record
-            array(
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2279,8 +2196,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2292,8 +2209,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2305,8 +2222,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2318,8 +2235,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2331,8 +2248,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2344,8 +2261,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>9,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2357,9 +2274,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             //tenth record
-            array(
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2371,8 +2288,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2384,8 +2301,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2397,8 +2314,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2410,8 +2327,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2423,8 +2340,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2436,8 +2353,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2449,8 +2366,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2462,8 +2379,8 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
-            array(
+            ],
+            [
                 'id'=>10,
                 'transaction_date'=>'3 days ago',
                 'exchange' =>'Buyer234',
@@ -2475,9 +2392,9 @@ trait Methods
                 'second_trade_dollar' =>'2586',
                 'txhash' =>'0gdashgdhasgd3487587',             
              
-            ),
+            ],
             
-        );
+        ];
 
         $limit = $request->limit;
         $filteredArray = self::filterArray($arr_info, ['id'=>(int)$request->id]);
@@ -2488,6 +2405,14 @@ trait Methods
 
 
     }
+
+    /**
+     * Filter Array
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function filterArray(array $products, array $filter = []): array
     {
         
@@ -2507,6 +2432,12 @@ trait Methods
         return $result;
     }
 
+    /** Paginate Array
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */   
     public static function paginate($items, $perPage = 1, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
