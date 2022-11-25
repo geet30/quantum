@@ -6,6 +6,8 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Arr;
+use \Carbon\Carbon;
+use \Carbon\CarbonPeriod;
 
 use function PHPUnit\Framework\returnCallback;
 
@@ -28,341 +30,89 @@ trait Methods
 
     Public static function getVaultData($request){
         $limit = $request->limit;
-             
-       
-        $myArray = [
-            [ 
-                'id'=>1,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>1,
-                'copiers' =>1,
-                'verified' =>1,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>2,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>2,
-                'copiers' => 1,
-                'verified' =>0,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>80,
-                        "y"=>'2015-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>3,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>3,
-                'copiers' => 1,
-                'verified' =>1,              
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>20,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>4,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>4,
-                'copiers' => 0,
-                'verified' =>1,             
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>90,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>5,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>1,
-                'copiers' =>1,
-                'verified' =>1,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>80,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>6,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>2,
-                'copiers' => 1,
-                'verified' =>0,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>7,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>3,
-                'copiers' => 1,
-                'verified' =>1,              
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>80,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>8,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>4,
-                'copiers' => 0,
-                'verified' =>1,             
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>80,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ]
-        ];
-        $filteredArray = [];
+        $myArray =[];
+        $myArray = self::getVaultElements();
+    
+        $filteredArray = $myArray;
        
         if(isset($request->verified) && $request->verified!=''){
+          
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
-        if(isset($request->copiers) && $request->copiers!=''){
+        if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
 
-            $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers]);
+            $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
         } 
         if(isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!=''){
+        if(isset($request->verified) && $request->verified!='' && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
 
-            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers]);
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiers) && $request->copiers!='' && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->verified) && $request->verified!='' && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!='' && isset($request->social_meter) && $request->social_meter!=''){
 
-            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
         } 
 
         if(isset($request->verified) && $request->verified!=''   && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
         } 
-        if(isset($request->copiers) && $request->copiers!=''  && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''  && isset($request->social_meter) && $request->social_meter!=''){
 
-            $filteredArray = self::filterArray($myArray, ['copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
+            $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
         } 
+       
         $data = self::paginate($filteredArray,$limit);
         return $data;
        
 
+    }
+    /**
+     * Get Vault Listing Elements.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function getVaultElements(){
+        $arr_info = [];
+        
+        for($i=1;$i<4;$i++){
+            $period = CarbonPeriod::create(date('Y-m-d', strtotime("-7 Days")), date('Y-m-d'));
+            $graph_info =[];
+            foreach($period as $date){
+                    
+                $graph_info[] = [
+                    'x' => rand(0, 100),
+                    'Y' => $date->format('Y-m-d'),
+                ];
+            }  
+            $arr_info[] = [ 
+                'id'=>$i,
+                'tvl' =>'tvl',
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>rand(0, 100),
+                'social_meter' =>rand(0, 3),
+                'copiersStart' =>rand(0, 3),
+                'copiersEnd' => rand(0,3),
+                'verified' =>rand(0, 1),
+                'roidollar' =>rand(0, 100),
+                'roicoin' =>rand(0, 100),
+                'dollar_percentage' =>rand(0, 100),
+                'coin_percentage' =>rand(0, 100),
+                'graph' => $graph_info
+            ];  
+                  
+            
+        }
+       
+        return $arr_info;
     }
 
      /**
@@ -374,8 +124,7 @@ trait Methods
      */
 
     Public static function getVaultGraph($request){
-       
-             
+                   
         $myArray = array(
             [
                 'id'=>1,
@@ -1528,61 +1277,25 @@ trait Methods
      */ 
 
     Public static function getVaultAssets($request){
-
-        $asset_info = [
-            [
-                'id'=>1,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'in_profit'=>'yes',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ],
-            [
-                'id'=>2,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'in_profit'=>'yes',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ],
-            [
-                'id'=>3,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'in_profit'=>'yes',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ],
-            [
-                'id'=>4,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'in_profit'=>'yes',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ],
-        ];
+        $asset_info = [];
+        for($i=1;$i<6;$i++){
+            $asset_info[] = 
+                [
+                    'id'=>$i,
+                    'assets_under_management'=>rand(0,1000),
+                    'average_monthly_return' =>'2.56',
+                    'denomination_asset'=>'Binance pegged USDT',
+                    'management_fee' =>'1',     
+                    'amount_of_depositors' =>rand(0,100),
+                    'in_profit'=>'yes',
+                    'profit_loss'=>rand(0,100),
+                    'min_deposit_amount' =>rand(0,100), 
+                    'management_fee' =>rand(0,100),   
+                    'performance_fee' =>rand(0,100),             
+                 
+                ];            
+            
+        }
 
         $filteredArray = self::filterArray($asset_info, ['id'=>(int)$request->id]);
         return $filteredArray;
