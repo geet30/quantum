@@ -20,7 +20,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 });
 $router->group(['middleware' => 'cors','prefix' => 'vaults'], function () use ($router) {
     $router->any('/', [VaultsController::class, 'getvaults']);
-    $router->get('detail/graph/{id}', [VaultsController::class, 'getVaultGraph']);
-    $router->get('detail/asset_info/{id}', [VaultsController::class, 'getVaultAssets']);
-    $router->get('detail/transaction_detail/{id}', [VaultsController::class, 'getVaultTransaction']);
+    $router->get('{id}/detail/graph', [VaultsController::class, 'getVaultGraph']);
+    $router->get('{id}/detail/asset_info', [VaultsController::class, 'getVaultAssets']);
+    $router->get('{id}/detail/transaction_detail', [VaultsController::class, 'getVaultTransaction']);
 });
