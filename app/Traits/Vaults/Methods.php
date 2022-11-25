@@ -1287,7 +1287,7 @@ trait Methods
                     'denomination_asset'=>'Binance pegged USDT',
                     'management_fee' =>'1',     
                     'amount_of_depositors' =>rand(0,100),
-                    'in_profit'=>'yes',
+                    'in_profit'=>rand(0,1),
                     'profit_loss'=>rand(0,100),
                     'min_deposit_amount' =>rand(0,100), 
                     'management_fee' =>rand(0,100),   
