@@ -34,38 +34,23 @@ trait Methods
         $myArray = self::getVaultElements($request->verified);
     
         $filteredArray = $myArray;
+        
         if(isset($request->verified) && $request->verified==1){
+            
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
         if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
-
-            $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
+           
+           $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
         } 
         if(isset($request->social_meter) && $request->social_meter!=''){
-
+            
             $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
         } 
-        if(isset($request->verified) && $request->verified==1 && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
-
-            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
-        } 
-        if(isset($request->verified) && $request->verified==1 && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!='' && isset($request->social_meter) && $request->social_meter!=''){
-
-            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
-        } 
-
-        if(isset($request->verified) && $request->verified==1   && isset($request->social_meter) && $request->social_meter!=''){
-
-            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
-        } 
-        if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''  && isset($request->social_meter) && $request->social_meter!=''){
-
-            $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
-        } 
+       
         
         $page = $request->page;
         $data = self::paginate($filteredArray,$limit,$page);
-        // dd($data);
         return $data;
        
 
@@ -102,8 +87,9 @@ trait Methods
                 'name'=>'napfton',
                 'total_value'=>rand(0, 100),
                 'social_meter' =>rand(0, 3),
-                'copiersStart' =>rand(0, 12000),
-                'copiersEnd' => rand(0,12000),
+                'copiers' => rand(0, 12000),
+                // 'copiersStart' =>rand(0, 12000),
+                // 'copiersEnd' => rand(0,12000),
                 'verified' =>(int)$verified,
                 'roidollar' =>rand(0, 100),
                 'roicoin' =>rand(0, 100),
@@ -1359,20 +1345,35 @@ trait Methods
     public static function filterArray(array $products, array $filter = []): array
     {
         
-        $result = [];
-        $keyCount = count($filter);
-        foreach ($products as $product) {
-           
-            $match = 0;
-            foreach ($filter as $key => $value)
+        try{
+            $result = [];
+            $keyCount = count($filter);
+            foreach ($products as $product) {
                 
-                if ($product[$key] === $value) $match++;
             
+                $match = 0;
+                foreach ($filter as $key => $value){
+                    if(isset($filter['copiersStart']) && !empty($filter['copiersStart'])){
+                        if(($product['copiers'] >= $filter['copiersStart']) && ($product['copiers'] <= $filter['copiersEnd']))
+                            $match++;
+                        
+                    }else{
+                        if ($product[$key] === $value) $match++;
+                    }
                 
-            if ($match === $keyCount) $result[] = $product;
+                    
+                }
+                    
+                    
+                
+                    
+                if ($match === $keyCount) $result[] = $product;
+            }
+            
+            return $result;
+        }catch (\Exception $ex) {
+            dd($ex);
         }
-        
-        return $result;
     }
     /** Paginate Array
      * Author: Geetanjali Sharma
