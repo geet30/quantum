@@ -8,6 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Arr;
 use \Carbon\Carbon;
 use \Carbon\CarbonPeriod;
+use Exception;
 
 use function PHPUnit\Framework\returnCallback;
 
@@ -39,9 +40,9 @@ trait Methods
             
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
-        if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
+        if(isset($request->copiers_start) && $request->copiers_start!='' && isset($request->copiers_end) && $request->copiers_end!=''){
            
-           $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
+           $filteredArray = self::filterArray($myArray, ['copiers_start' => (int)$request->copiers_start,'copiers_end' => (int)$request->copiers_end]);
         } 
         if(isset($request->social_meter) && $request->social_meter!=''){
             
@@ -88,8 +89,6 @@ trait Methods
                 'total_value'=>rand(0, 100),
                 'social_meter' =>rand(0, 3),
                 'copiers' => rand(0, 12000),
-                // 'copiersStart' =>rand(0, 12000),
-                // 'copiersEnd' => rand(0,12000),
                 'verified' =>(int)$verified,
                 'roidollar' =>rand(0, 100),
                 'roicoin' =>rand(0, 100),
@@ -113,1149 +112,122 @@ trait Methods
      */
 
     Public static function getVaultGraph($request){
-                   
-        $myArray = array(
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ],
-                    [
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ],
-                ],
-            ],
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' => [
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],
-           
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ],
-                    
-                ]
-            ],
-            [
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ],
-                   
-                    
-                ],
-            ],
-            //second record
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ],
-                    [
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ],
-                ]
-            ],
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ]
-            ],
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' => [
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],         
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ],
-                    
-                ]
-            ],
-            [
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ],
-                   
-                    
-                ],
-            ],
-            //third record
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ],
-                    [
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ],
-                ]
-            ],
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ]
-            ],
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' => [
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],         
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ],
-                    
-                ]
-            ],
-            [
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ],
-                   
-                    
-                ],
-            ],
-            //Fourth Record
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ],
-                    [
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ],
-                ]
-            ],
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ]
-            ],
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                ],
-            ], 
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' => [
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],         
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ],
-                ],
-            ],
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ],
-                    
-                ]
-            ],
-            [
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>[
-                    [
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ],
-                    [
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ],
-                    [
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ],
-                    [
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ],
-                    [
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ],
-                    [
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ],
-                    [
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ],
-                   
-                    
-                ],
-            ],
-        );
-               
-        $filteredArray = self::filterArray($myArray, ['id'=>(int)$request->id,'time_difference' => $request->time_difference]);
-        return $filteredArray;
+        try{         
+            $myArray =[];
+            $name = 'napfton';
+            $intervalDuration= '';$durationType='all';
+            $valueStart = '2000-01-01';
+            if(isset($request->time_difference) && $request->time_difference !='all'){
+                $explode = preg_split('#(?<=\d)(?=[a-z])#i', $request->time_difference);
+                $intervalDuration =$explode[0];
+                $durationType = $explode[1];
+                
+
+            }
+            $myArray = self::getVaultGraphElement($request->id,$name,$intervalDuration,$durationType,$valueStart);
+            $filteredArray = $myArray;
+            
+            return $filteredArray;
+        }catch(Exception $ex){
+            dd($ex);
+        }
        
+    }
+
+     /**
+     * Get Vault Detail Graph Elemnents.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function getVaultGraphElement($id, $name, $intervalDuration, $durationType, $valueStart) {
+       
+        try{
+            $durationTypeString =$duration= '';
+            switch($durationType) {
+                case 'H':
+                    $durationTypeString = 'hours';
+                    $duration = 24;
+                    break;
+                case 'D':
+                    $durationTypeString = 'days';
+                    $duration = 7;
+                    break;
+                case 'M':
+                    $durationTypeString = 'months';
+                    $duration = 12;
+                    break;
+                case 'yr':
+                    $durationTypeString = 'year';
+                    break;
+                case 'ytd':
+                    $durationTypeString = 'ytd';
+                    break;
+                case 'all':
+                    $durationTypeString = 'all';
+                    break;
+            }
+
+            if(in_array($durationTypeString, ['days', 'months'])) {
+                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+            }
+            else if($durationTypeString == 'ytd') {
+                $period = CarbonPeriod::create(date('Y') . '-01-01', date('Y-m-d'));
+            }
+            else if($durationTypeString == 'hours') {
+                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+            
+                // $period = CarbonPeriod::create(date('Y-m-d'), date('Y-m-d'));
+            }
+            else if($durationTypeString == 'year') {
+                $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
+            }
+            else {
+                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-30 days")), date('Y-m-d'));
+            }
+        
+            $returnData = [
+                'id'=>$id,
+                'vault_name'=>$name,
+                'time_difference' => $intervalDuration . $durationType,
+                'icon' =>url('images/icon.png'),
+                'graph_data' => [],
+            ];
+
+            $newDate = false;
+            foreach ($period as $date) {
+                if(!$newDate || (is_object($newDate) && $date->timestamp >= $newDate->timestamp)) {
+                    switch($durationType) {
+                        case 'H':
+                            $newDate = $date->addHours($intervalDuration);
+                            break;
+                        case 'D':
+                            $newDate = $date->addDays($intervalDuration);
+                            break;
+                        case 'M':
+                            $newDate = $date->addMonths($intervalDuration);
+                            break;
+                        case 'yr':
+                            $newDate = $date->addYears($intervalDuration);
+                            break;
+                        case 'all':
+                            $newDate = $date->addYears($intervalDuration);
+                            break;
+                    }
+                    $returnData['graph_data'][] = [
+                        'x' => rand(0, 100),
+                        'Y' => $date->format('Y-m-d'),
+                    ];
+                }
+            }
+            // dd($returnData);
+
+            return $returnData;
+        }
+        catch(Exception $ex){
+            dd($ex);
+        }
     }
     /**
      * Get Vault Detail Assets.
@@ -1353,8 +325,8 @@ trait Methods
             
                 $match = 0;
                 foreach ($filter as $key => $value){
-                    if(isset($filter['copiersStart']) && !empty($filter['copiersStart'])){
-                        if(($product['copiers'] >= $filter['copiersStart']) && ($product['copiers'] <= $filter['copiersEnd']))
+                    if(isset($filter['copiers_start']) && !empty($filter['copiers_start'])){
+                        if(($product['copiers'] >= $filter['copiers_start']) && ($product['copiers'] <= $filter['copiers_end']))
                             $match++;
                         
                     }else{
