@@ -31,13 +31,10 @@ trait Methods
     Public static function getVaultData($request){
         $limit = $request->limit;
         $myArray =[];
-        $myArray = self::getVaultElements();
+        $myArray = self::getVaultElements($request->verified);
     
         $filteredArray = $myArray;
-       
-        if(isset($request->verified) && $request->verified!=''){
-          
-
+        if(isset($request->verified) && $request->verified==1){
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
         } 
         if(isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
@@ -48,16 +45,16 @@ trait Methods
 
             $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
+        if(isset($request->verified) && $request->verified==1 && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd]);
         } 
-        if(isset($request->verified) && $request->verified!='' && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!='' && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->verified) && $request->verified==1 && isset($request->copiersStart) && $request->copiersStart!='' && isset($request->copiersEnd) && $request->copiersEnd!='' && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
         } 
 
-        if(isset($request->verified) && $request->verified!=''   && isset($request->social_meter) && $request->social_meter!=''){
+        if(isset($request->verified) && $request->verified==1   && isset($request->social_meter) && $request->social_meter!=''){
 
             $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified,'social_meter'=>(int)$request->social_meter]);
         } 
@@ -65,8 +62,10 @@ trait Methods
 
             $filteredArray = self::filterArray($myArray, ['copiersStart' => (int)$request->copiersStart,'copiersEnd' => (int)$request->copiersEnd,'social_meter'=>(int)$request->social_meter]);
         } 
-       
-        $data = self::paginate($filteredArray,$limit);
+        
+        $page = $request->page;
+        $data = self::paginate($filteredArray,$limit,$page);
+        // dd($data);
         return $data;
        
 
@@ -78,10 +77,10 @@ trait Methods
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function getVaultElements(){
+    public static function getVaultElements($verified=0){
         $arr_info = [];
         
-        for($i=1;$i<4;$i++){
+        for($i=1;$i<50;$i++){
             $period = CarbonPeriod::create(date('Y-m-d', strtotime("-7 Days")), date('Y-m-d'));
             $graph_info =[];
             foreach($period as $date){
@@ -91,17 +90,21 @@ trait Methods
                     'Y' => $date->format('Y-m-d'),
                 ];
             }  
+
+            if($verified != 0){
+                $verified =1;
+            }
             $arr_info[] = [ 
                 'id'=>$i,
-                'tvl' =>'tvl',
+                'tvl' =>rand(0, 1000),
                 'icon' =>url('images/icon.png'),
                 'vault_name'=>'napfton',
                 'name'=>'napfton',
                 'total_value'=>rand(0, 100),
                 'social_meter' =>rand(0, 3),
-                'copiersStart' =>rand(0, 3),
-                'copiersEnd' => rand(0,3),
-                'verified' =>rand(0, 1),
+                'copiersStart' =>rand(0, 12000),
+                'copiersEnd' => rand(0,12000),
+                'verified' =>(int)$verified,
                 'roidollar' =>rand(0, 100),
                 'roicoin' =>rand(0, 100),
                 'dollar_percentage' =>rand(0, 100),
@@ -1312,806 +1315,34 @@ trait Methods
      */
 
     Public static function getVaultTransaction($request){
-
-        $arr_info = [
-            [
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //2nd record
-            [
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //3rd record
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //Fourth Record
-            [
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //Fifth Record
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //sixth Record
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //seventh record
-            [
-                'id'=>7,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>7,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>7,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //eighth record
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //nineth record
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            //tenth record
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
-            [
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ],
+       
+        $transaction_info = [];
+        for($i=1;$i<20;$i++){
+            $transaction_info[] = 
+                [
+                    'id'=>$request->id,
+                    'transaction_date'=>'3 days ago',
+                    'exchange' =>'Buyer234',
+                    'trade_type'=>'SELL',
+                    'purchase_price' =>rand(0,1000),        
+                    'trade_coin' =>rand(0,10000), 
+                    'trade_dollar' =>rand(0,1000), 
+                    'second_trade_coin' =>rand(0,10000), 
+                    'second_trade_dollar' =>rand(0,1000),
+                    'txhash' =>'0gdashgdhasgd3487587',  
+                    'etherum_icon' =>url('images/etherum.png'),
+                    'usst_icon' =>url('images/usst.png'),            
+                 
+                ];            
             
-        ];
-
+        }
         $limit = $request->limit;
-        $filteredArray = self::filterArray($arr_info, ['id'=>(int)$request->id]);
+        // $filteredArray = self::filterArray($transaction_info, ['id'=>(int)$request->id]);
+        $filteredArray = $transaction_info;
       
-        $data = self::paginate($filteredArray,$limit);
+       
+        $page = $request->page;
+        $data = self::paginate($filteredArray,$limit,$page);
         return $data;
 
 
@@ -2149,11 +1380,13 @@ trait Methods
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */   
-    public static function paginate($items, $perPage = 1, $page = null, $options = [])
+    public static function paginate($items, $per_page = 1, $page = null, $options = [])
     {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $collection = new Collection($items);
+        $currentPageResults =$collection->slice(($currentPage - 1) *$per_page, $per_page)->values();
+        return  new LengthAwarePaginator($currentPageResults, count($collection), $per_page);
+       
     }
     
 }
