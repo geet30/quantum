@@ -217,7 +217,7 @@ trait Methods
                     }
                     $returnData['graph_data'][] = [
                         'x' => rand(0, 100),
-                        'Y' => $date->format('Y-m-d'),
+                        'y' => $date->format('Y-m-d'),
                     ];
                 }
             }
