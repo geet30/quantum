@@ -115,14 +115,20 @@ trait Methods
         try{         
             $myArray =[];
             $name = 'napfton';
-            $intervalDuration= '';$durationType='all';
+            $intervalDuration= '';
+            $durationType='all';
             $valueStart = '2000-01-01';
-            if(isset($request->time_difference) && $request->time_difference !='all'){
+           
+            if(isset($request->time_difference) && $request->time_difference !='all' && $request->time_difference 
+            !='ytd'){
+
                 $explode = preg_split('#(?<=\d)(?=[a-z])#i', $request->time_difference);
                 $intervalDuration =$explode[0];
                 $durationType = $explode[1];
-                
 
+            }
+            if(isset($request->time_difference) && $request->time_difference =='ytd'){
+                $durationType='ytd';
             }
             $myArray = self::getVaultGraphElement($request->id,$name,$intervalDuration,$durationType,$valueStart);
             $filteredArray = $myArray;
@@ -146,15 +152,15 @@ trait Methods
         try{
             $durationTypeString =$duration= '';
             switch($durationType) {
-                case 'H':
+                case 'h':
                     $durationTypeString = 'hours';
                     $duration = 24;
                     break;
-                case 'D':
+                case 'd':
                     $durationTypeString = 'days';
                     $duration = 7;
                     break;
-                case 'M':
+                case 'm':
                     $durationTypeString = 'months';
                     $duration = 12;
                     break;
@@ -170,6 +176,7 @@ trait Methods
             }
 
             if(in_array($durationTypeString, ['days', 'months'])) {
+               
                 $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
             }
             else if($durationTypeString == 'ytd') {
@@ -177,8 +184,6 @@ trait Methods
             }
             else if($durationTypeString == 'hours') {
                 $period = CarbonPeriod::create(Carbon::now()->startOfDay(), Carbon::now()->endOfDay());
-            
-                // $period = CarbonPeriod::create(date('Y-m-d'), date('Y-m-d'));
             }
             else if($durationTypeString == 'year') {
                 $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
@@ -186,6 +191,7 @@ trait Methods
             else {
                 $period = CarbonPeriod::create(date('Y-m-d', strtotime("-30 days")), date('Y-m-d'));
             }
+            
         
             $returnData = [
                 'id'=>$id,
@@ -199,13 +205,13 @@ trait Methods
             foreach ($period as $date) {
                 if(!$newDate || (is_object($newDate) && $date->timestamp >= $newDate->timestamp)) {
                     switch($durationType) {
-                        case 'H':
+                        case 'h':
                             $newDate = $date->addHours($intervalDuration);
                             break;
-                        case 'D':
+                        case 'd':
                             $newDate = $date->addDays($intervalDuration);
                             break;
-                        case 'M':
+                        case 'm':
                             $newDate = $date->addMonths($intervalDuration);
                             break;
                         case 'yr':
