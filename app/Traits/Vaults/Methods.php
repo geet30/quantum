@@ -175,9 +175,20 @@ trait Methods
                     break;
             }
 
-            if(in_array($durationTypeString, ['days', 'months'])) {
+            // if(in_array($durationTypeString, ['days', 'months'])) {
+               
+            //     $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+            // }
+            if($durationTypeString == 'months') {
                
                 $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+            }
+            else if($durationTypeString == 'days') {
+                // dd(date('Y-m-d', strtotime("-7 days")));
+                $valueStart = date('Y-m-d', strtotime("-7 days"));
+                $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
+                // $period = CarbonPeriod::create(date('Y-m-d', strtotime("-7 days")), date('Y-m-d'));
+                // $period = CarbonPeriod::create(Carbon::now()->subDays(7), date('Y-m-d'));
             }
             else if($durationTypeString == 'ytd') {
                 $period = CarbonPeriod::create(date('Y') . '-01-01', date('Y-m-d'));
@@ -208,12 +219,12 @@ trait Methods
                         case 'h':
                             $newDate = $date->addHours($intervalDuration);
                             break;
-                        case 'd':
-                            $newDate = $date->addDays($intervalDuration);
-                            break;
-                        case 'm':
-                            $newDate = $date->addMonths($intervalDuration);
-                            break;
+                        // case 'd':
+                        //     // $newDate = $date->addDays($intervalDuration);
+                        //     break;
+                        // case 'm':
+                        //     $newDate = $date->addMonths($intervalDuration);
+                        //     break;
                         case 'yr':
                             $newDate = $date->addYears($intervalDuration);
                             break;
@@ -226,6 +237,7 @@ trait Methods
                             $returnData['graph_data'][] = [
                                 'x' => rand(0, 100),
                                 'y' => $date->addHour()->format('H:i:a'),
+                                
                             ];
                         }
                     }else{
