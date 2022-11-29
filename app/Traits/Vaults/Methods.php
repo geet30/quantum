@@ -176,7 +176,7 @@ trait Methods
                 $period = CarbonPeriod::create(date('Y') . '-01-01', date('Y-m-d'));
             }
             else if($durationTypeString == 'hours') {
-                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+                $period = CarbonPeriod::create(Carbon::now()->startOfDay(), Carbon::now()->endOfDay());
             
                 // $period = CarbonPeriod::create(date('Y-m-d'), date('Y-m-d'));
             }
@@ -215,10 +215,22 @@ trait Methods
                             $newDate = $date->addYears($intervalDuration);
                             break;
                     }
-                    $returnData['graph_data'][] = [
-                        'x' => rand(0, 100),
-                        'y' => $date->format('Y-m-d'),
-                    ];
+                    if($durationTypeString == 'hours' && $duration==24){
+                        for($i=1;$i<$duration;$i++){
+                            $returnData['graph_data'][] = [
+                                'x' => rand(0, 100),
+                                'y' => $date->format('Y-m-d'),
+                            ];
+                        }
+                    }else{
+                        $returnData['graph_data'][] = [
+                            'x' => rand(0, 100),
+                            'y' => $date->format('Y-m-d'),
+                        ];
+                    }
+                    
+                    
+
                 }
             }
             // dd($returnData);
