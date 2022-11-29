@@ -225,7 +225,7 @@ trait Methods
                         for($i=1;$i<$duration;$i++){
                             $returnData['graph_data'][] = [
                                 'x' => rand(0, 100),
-                                'y' => $date->format('Y-m-d'),
+                                'y' => $date->addHour()->format('H:i:a'),
                             ];
                         }
                     }else{
@@ -300,7 +300,7 @@ trait Methods
                     'transaction_date'=>'3 days ago',
                     'exchange' =>'Buyer234',
                     'trade_type'=>'SELL',
-                    'purchase_price' =>rand(0,1000),        
+                    'purchase_price' =>rand(0,1000).' USDT/ETH',        
                     'trade_coin' =>rand(0,10000), 
                     'trade_dollar' =>rand(0,1000), 
                     'second_trade_coin' =>rand(0,10000), 
