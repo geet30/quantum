@@ -162,7 +162,7 @@ trait Methods
                     break;
                 case 'm':
                     $durationTypeString = 'months';
-                    $duration = 12;
+                    // $duration = 12;
                     break;
                 case 'yr':
                     $durationTypeString = 'year';
@@ -182,7 +182,7 @@ trait Methods
                     
             }
             else if($durationTypeString == 'months') {
-               $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+               $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$intervalDuration $durationTypeString")), date('Y-m-d'));
             }
             else if($durationTypeString == 'days') {
                 $valueStart = date('Y-m-d', strtotime("-7 days"));
