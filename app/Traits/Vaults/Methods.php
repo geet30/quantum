@@ -119,18 +119,17 @@ trait Methods
             $durationType='all';
             $valueStart = '2000-01-01';
            
+           
             if(isset($request->time_difference) && $request->time_difference !='all' && $request->time_difference 
             !='ytd'){
-
                 $explode = preg_split('#(?<=\d)(?=[a-z])#i', $request->time_difference);
                 $intervalDuration =$explode[0];
                 $durationType = $explode[1];
-
             }
             if(isset($request->time_difference) && $request->time_difference =='ytd'){
                 $durationType='ytd';
             }
-            $myArray = self::getVaultGraphElement($request->id,$name,$intervalDuration,$durationType,$valueStart);
+            $myArray = self::getVaultGraphElement($request,$name,$intervalDuration,$durationType,$valueStart);
             $filteredArray = $myArray;
             
             return $filteredArray;
@@ -147,7 +146,8 @@ trait Methods
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public static function getVaultGraphElement($id, $name, $intervalDuration, $durationType, $valueStart) {
+    public static function getVaultGraphElement($request, $name, $intervalDuration, $durationType, $valueStart) {
+        $id = $request->id;
        
         try{
             $durationTypeString =$duration= '';
@@ -174,26 +174,25 @@ trait Methods
                     $durationTypeString = 'all';
                     break;
             }
-
-            // if(in_array($durationTypeString, ['days', 'months'])) {
-               
-            //     $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
-            // }
-            if($durationTypeString == 'months') {
-               
-                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
+            $dateRange = false;
+            if(isset($request->date_range_start) && $request->date_range_start !='' && isset($request->date_range_end) && $request->date_range_end 
+            !=''){
+                    $dateRange = true;
+                    $period = CarbonPeriod::create($request->date_range_start, $request->date_range_end );
+                    
+            }
+            else if($durationTypeString == 'months') {
+               $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$duration $durationTypeString")), date('Y-m-d'));
             }
             else if($durationTypeString == 'days') {
-                // dd(date('Y-m-d', strtotime("-7 days")));
                 $valueStart = date('Y-m-d', strtotime("-7 days"));
                 $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
-                // $period = CarbonPeriod::create(date('Y-m-d', strtotime("-7 days")), date('Y-m-d'));
-                // $period = CarbonPeriod::create(Carbon::now()->subDays(7), date('Y-m-d'));
             }
             else if($durationTypeString == 'ytd') {
                 $period = CarbonPeriod::create(date('Y') . '-01-01', date('Y-m-d'));
             }
             else if($durationTypeString == 'hours') {
+              
                 $period = CarbonPeriod::create(Carbon::now()->startOfDay(), Carbon::now()->endOfDay());
             }
             else if($durationTypeString == 'year') {
@@ -202,8 +201,7 @@ trait Methods
             else {
                 $period = CarbonPeriod::create(date('Y-m-d', strtotime("-30 days")), date('Y-m-d'));
             }
-            
-        
+                  
             $returnData = [
                 'id'=>$id,
                 'vault_name'=>$name,
@@ -219,12 +217,6 @@ trait Methods
                         case 'h':
                             $newDate = $date->addHours($intervalDuration);
                             break;
-                        // case 'd':
-                        //     // $newDate = $date->addDays($intervalDuration);
-                        //     break;
-                        // case 'm':
-                        //     $newDate = $date->addMonths($intervalDuration);
-                        //     break;
                         case 'yr':
                             $newDate = $date->addYears($intervalDuration);
                             break;
@@ -232,7 +224,8 @@ trait Methods
                             $newDate = $date->addYears($intervalDuration);
                             break;
                     }
-                    if($durationTypeString == 'hours' && $duration==24){
+                     
+                    if($dateRange == false && $durationTypeString == 'hours' && $duration==24){
                         for($i=1;$i<$duration;$i++){
                             $returnData['graph_data'][] = [
                                 'x' => rand(0, 100),
@@ -246,12 +239,9 @@ trait Methods
                             'y' => $date->format('Y-m-d'),
                         ];
                     }
-                    
-                    
-
                 }
             }
-            // dd($returnData);
+          
 
             return $returnData;
         }
