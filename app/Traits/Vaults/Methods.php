@@ -6,1520 +6,277 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Arr;
+use \Carbon\Carbon;
+use \Carbon\CarbonPeriod;
+use Exception;
 
 use function PHPUnit\Framework\returnCallback;
 
 /**
 * Vaults Methods model.
 * Author: Geetanjali Sharma
+* Company: Crebos Nederland B.V.
 */
 
 trait Methods
 {
     
+     /**
+     * Get Vault Listing.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     Public static function getVaultData($request){
         $limit = $request->limit;
-             
-        $myArray = array(
-            array(
-                'id'=>1,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>1,
-                'copiers' =>1,
-                'verified' =>1,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>2,
-                'copiers' => 1,
-                'verified' =>0,
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>3,
-                'copiers' => 1,
-                'verified' =>1,              
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
-                'id'=>4,
-                'tvl' =>'tvl',
-                'icon' =>url('images/icon.png'),
-                'vault_name'=>'napfton',
-                'name'=>'napfton',
-                'total_value'=>'4',
-                'social_meter' =>4,
-                'copiers' => 0,
-                'verified' =>1,             
-                'roidollar' =>'23',
-                'roicoin' =>'24',
-                'dollar_percentage' =>'10',
-                'coin_percentage' =>'10',
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            )
-        );
-               
-        $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified, 'copiers' => (int)$request->copiers,'social_meter'=>(int)$request->social_meter]);
-      
-        $data = self::paginate($filteredArray,$limit);
+        $myArray =[];
+        $myArray = self::getVaultElements($request->verified);
+    
+        $filteredArray = $myArray;
+        
+        if(isset($request->verified) && $request->verified==1){
+            
+            $filteredArray = self::filterArray($myArray, ['verified' => (int)$request->verified]);
+        } 
+        if(isset($request->copiers_start) && $request->copiers_start!='' && isset($request->copiers_end) && $request->copiers_end!=''){
+           
+           $filteredArray = self::filterArray($myArray, ['copiers_start' => (int)$request->copiers_start,'copiers_end' => (int)$request->copiers_end]);
+        } 
+        if(isset($request->social_meter) && $request->social_meter!=''){
+            
+            $filteredArray = self::filterArray($myArray, ['social_meter' => (int)$request->social_meter]);
+        } 
+       
+        
+        $page = $request->page;
+        $data = self::paginate($filteredArray,$limit,$page);
         return $data;
        
 
     }
-    Public static function getVaultGraph($request){
+    /**
+     * Get Vault Listing Elements.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function getVaultElements($verified=0){
+        $arr_info = [];
+        
+        for($i=1;$i<50;$i++){
+            $period = CarbonPeriod::create(date('Y-m-d', strtotime("-7 Days")), date('Y-m-d'));
+            $graph_info =[];
+            foreach($period as $date){
+                    
+                $graph_info[] = [
+                    'x' => rand(0, 100),
+                    'Y' => $date->format('Y-m-d'),
+                ];
+            }  
+
+            if($verified != 0){
+                $verified =1;
+            }
+            $arr_info[] = [ 
+                'id'=>$i,
+                'tvl' =>rand(0, 1000),
+                'icon' =>url('images/icon.png'),
+                'vault_name'=>'napfton',
+                'name'=>'napfton',
+                'total_value'=>rand(0, 100),
+                'social_meter' =>rand(0, 3),
+                'copiers' => rand(0, 12000),
+                'verified' =>(int)$verified,
+                'roidollar' =>rand(0, 100),
+                'roicoin' =>rand(0, 100),
+                'dollar_percentage' =>rand(0, 100),
+                'coin_percentage' =>rand(0, 100),
+                'graph' => $graph_info
+            ];  
+                  
+            
+        }
        
-             
-        $myArray = array(
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ),
-                    array(
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ),
-                    
-                ),
-            ),
-            array(
-                'id'=>1,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ),
-                   
-                    
-                ),
-            ),
-            //second record
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ),
-                    array(
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ),
-                    
-                ),
-            ),
-            array(
-                'id'=>2,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ),
-                   
-                    
-                ),
-            ),
-            //third record
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ),
-                    array(
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ),
-                    
-                ),
-            ),
-            array(
-                'id'=>3,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ),
-                   
-                    
-                ),
-            ),
-            //Fourth Record
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'7D',
-                'icon' =>url('images/icon.png'),              
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2021-01-02'
-                    ),
-                    array(
-                        "x"=>90,
-                        "y"=>'2021-01-03'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2021-01-04'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2021-01-05'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-07'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'3M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                ),
-            ), 
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'6M',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'1yr',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2015-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2016-01-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2017-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2018-01-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2021-01-01'
-                    ),
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'ytd',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-02-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-03-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-04-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-05-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2022-06-01'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-07-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-08-01'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2022-09-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2022-10-01'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2022-11-01'
-                    ),
-                    
-                ),
-            ),
-            array(
-                'id'=>4,
-                'vault_name'=>'napfton',
-                'time_difference' =>'all',
-                'icon' =>url('images/icon.png'),
-                'graph' =>array (
-                    array(
-                        "x"=>10,
-                        "y"=>'2019-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2019-06-06'
-                    ),
-                    array(
-                        "x"=>30,
-                        "y"=>'2020-01-01'
-                    ),
-                    array(
-                        "x"=>40,
-                        "y"=>'2020-01-06'
-                    ),
-                    array(
-                        "x"=>50,
-                        "y"=>'2021-01-01'
-                    ),
-                    array(
-                        "x"=>60,
-                        "y"=>'2021-01-06'
-                    ),
-                    array(
-                        "x"=>70,
-                        "y"=>'2022-01-01'
-                    ),
-                    array(
-                        "x"=>20,
-                        "y"=>'2022-06-01'
-                    ),
-                   
-                    
-                ),
-            ),
-        );
-               
-        $filteredArray = self::filterArray($myArray, ['id'=>(int)$request->id,'time_difference' => $request->time_difference]);
-        return $filteredArray;
+        return $arr_info;
+    }
+
+     /**
+     * Get Vault Detail Graph.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    Public static function getVaultGraph($request){
+        try{         
+            $myArray =[];
+            $name = 'napfton';
+            $intervalDuration= '';
+            $durationType='all';
+            $valueStart = '2000-01-01';
+           
+           
+            if(isset($request->time_difference) && $request->time_difference !='all' && $request->time_difference 
+            !='ytd'){
+                $explode = preg_split('#(?<=\d)(?=[a-z])#i', $request->time_difference);
+                $intervalDuration =$explode[0];
+                $durationType = $explode[1];
+            }
+            if(isset($request->time_difference) && $request->time_difference =='ytd'){
+                $durationType='ytd';
+            }
+            $myArray = self::getVaultGraphElement($request,$name,$intervalDuration,$durationType,$valueStart);
+            $filteredArray = $myArray;
+            
+            return $filteredArray;
+        }catch(Exception $ex){
+            dd($ex);
+        }
        
     }
-    
-    Public static function getVaultAssets($request){
 
-        $asset_info = array(
-            array(
-                'id'=>1,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ),
-            array(
-                'id'=>2,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ),
-            array(
-                'id'=>3,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            ),
-            array(
-                'id'=>4,
-                'assets_under_management'=>'1000',
-                'average_monthly_return' =>'2.56',
-                'denomination_asset'=>'Binance pegged USDT',
-                'management_fee' =>'1',     
-                'amount_of_depositors' =>'42586',
-                'profit_loss'=>'5421.43',
-                'min_deposit_amount' =>'150', 
-                'management_fee' =>'15',             
-             
-            )
-        );
+     /**
+     * Get Vault Detail Graph Elemnents.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public static function getVaultGraphElement($request, $name, $intervalDuration, $durationType, $valueStart) {
+        $id = $request->id;
+       
+        try{
+            $durationTypeString =$duration= '';
+            switch($durationType) {
+                case 'h':
+                    $durationTypeString = 'hours';
+                    $duration = 24;
+                    break;
+                case 'd':
+                    $durationTypeString = 'days';
+                    $duration = 7;
+                    break;
+                case 'm':
+                    $durationTypeString = 'months';
+                    // $duration = 12;
+                    break;
+                case 'yr':
+                    $durationTypeString = 'year';
+                    break;
+                case 'ytd':
+                    $durationTypeString = 'ytd';
+                    break;
+                case 'all':
+                    $durationTypeString = 'all';
+                    break;
+            }
+            $dateRange = false;
+            if(isset($request->date_range_start) && $request->date_range_start !='' && isset($request->date_range_end) && $request->date_range_end 
+            !=''){
+                    $dateRange = true;
+                    $period = CarbonPeriod::create($request->date_range_start, $request->date_range_end );
+                    
+            }
+            else if($durationTypeString == 'months') {
+               $period = CarbonPeriod::create(date('Y-m-d', strtotime("-$intervalDuration $durationTypeString")), date('Y-m-d'));
+            }
+            else if($durationTypeString == 'days') {
+                $valueStart = date('Y-m-d', strtotime("-7 days"));
+                $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
+            }
+            else if($durationTypeString == 'ytd') {
+                $period = CarbonPeriod::create(date('Y') . '-01-01', date('Y-m-d'));
+            }
+            else if($durationTypeString == 'hours') {
+              
+                $period = CarbonPeriod::create(Carbon::now()->startOfDay(), Carbon::now()->endOfDay());
+            }
+            else if($durationTypeString == 'year') {
+                $period = CarbonPeriod::create($valueStart, date('Y-m-d'));
+            }
+            else {
+                $period = CarbonPeriod::create(date('Y-m-d', strtotime("-30 days")), date('Y-m-d'));
+            }
+                  
+            $returnData = [
+                'id'=>$id,
+                'vault_name'=>$name,
+                'time_difference' => $intervalDuration . $durationType,
+                'icon' =>url('images/icon.png'),
+                'graph_data' => [],
+            ];
+
+            $newDate = false;
+            foreach ($period as $date) {
+                if(!$newDate || (is_object($newDate) && $date->timestamp >= $newDate->timestamp)) {
+                    switch($durationType) {
+                        case 'h':
+                            $newDate = $date->addHours($intervalDuration);
+                            break;
+                        case 'yr':
+                            $newDate = $date->addYears($intervalDuration);
+                            break;
+                        case 'all':
+                            $newDate = $date->addYears($intervalDuration);
+                            break;
+                    }
+                     
+                    if($dateRange == false && $durationTypeString == 'hours' && $duration==24){
+                        for($i=1;$i<$duration;$i++){
+                            $returnData['graph_data'][] = [
+                                'x' => rand(0, 100),
+                                'y' => $date->addHour()->format('H:i:a'),
+                                
+                            ];
+                        }
+                    }else{
+                        $returnData['graph_data'][] = [
+                            'x' => rand(0, 100),
+                            'y' => $date->format('Y-m-d'),
+                        ];
+                    }
+                }
+            }
+          
+
+            return $returnData;
+        }
+        catch(Exception $ex){
+            dd($ex);
+        }
+    }
+    /**
+     * Get Vault Detail Assets.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */ 
+
+    Public static function getVaultAssets($request){
+        $asset_info = [];
+        for($i=1;$i<6;$i++){
+            $asset_info[] = 
+                [
+                    'id'=>$i,
+                    'assets_under_management'=>rand(0,1000),
+                    'average_monthly_return' =>'2.56',
+                    'denomination_asset'=>'Binance pegged USDT',
+                    'management_fee' =>'1',     
+                    'amount_of_depositors' =>rand(0,100),
+                    'in_profit'=>rand(0,1),
+                    'profit_loss'=>rand(0,100),
+                    'min_deposit_amount' =>rand(0,100), 
+                    'management_fee' =>rand(0,100),   
+                    'performance_fee' =>rand(0,100),             
+                 
+                ];            
+            
+        }
 
         $filteredArray = self::filterArray($asset_info, ['id'=>(int)$request->id]);
         return $filteredArray;
@@ -1527,810 +284,102 @@ trait Methods
 
     }
 
+    /**
+     * Get Vault Detail Transaction.
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     Public static function getVaultTransaction($request){
-
-        $arr_info = array(
-            array(
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>1,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //2nd record
-            array(
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>2,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //3rd record
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>3,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //Fourth Record
-            array(
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>4,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //Fifth Record
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>5,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //sixth Record
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>6,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //seventh record
-            array(
-                'id'=>7,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //eighth record
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>8,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //nineth record
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>9,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            //tenth record
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
-            array(
-                'id'=>10,
-                'transaction_date'=>'3 days ago',
-                'exchange' =>'Buyer234',
-                'trade_type'=>'SELL',
-                'purchase_price' =>'1294',     
-                'trade_coin' =>'42586',
-                'trade_dollar' =>'2586',
-                'second_trade_coin' =>'42586',
-                'second_trade_dollar' =>'2586',
-                'txhash' =>'0gdashgdhasgd3487587',             
-             
-            ),
+       
+        $transaction_info = [];
+        for($i=1;$i<20;$i++){
+            $transaction_info[] = 
+                [
+                    'id'=>$request->id,
+                    'transaction_date'=>'3 days ago',
+                    'exchange' =>'Buyer234',
+                    'trade_type'=>'SELL',
+                    'purchase_price' =>rand(0,1000).' USDT/ETH',        
+                    'trade_coin' =>rand(0,10000), 
+                    'trade_dollar' =>rand(0,1000), 
+                    'second_trade_coin' =>rand(0,10000), 
+                    'second_trade_dollar' =>rand(0,1000),
+                    'txhash' =>'0gdashgdhasgd3487587',  
+                    'etherum_icon' =>url('images/etherum.png'),
+                    'usst_icon' =>url('images/usst.png'),            
+                 
+                ];            
             
-        );
-
+        }
         $limit = $request->limit;
-        $filteredArray = self::filterArray($arr_info, ['id'=>(int)$request->id]);
+        // $filteredArray = self::filterArray($transaction_info, ['id'=>(int)$request->id]);
+        $filteredArray = $transaction_info;
       
-        $data = self::paginate($filteredArray,$limit);
+       
+        $page = $request->page;
+        $data = self::paginate($filteredArray,$limit,$page);
         return $data;
 
 
 
     }
+
+    /**
+     * Filter Array
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public static function filterArray(array $products, array $filter = []): array
     {
         
-        $result = [];
-        $keyCount = count($filter);
-        foreach ($products as $product) {
-           
-            $match = 0;
-            foreach ($filter as $key => $value)
+        try{
+            $result = [];
+            $keyCount = count($filter);
+            foreach ($products as $product) {
                 
-                if ($product[$key] === $value) $match++;
             
+                $match = 0;
+                foreach ($filter as $key => $value){
+                    if(isset($filter['copiers_start']) && !empty($filter['copiers_start'])){
+                        if(($product['copiers'] >= $filter['copiers_start']) && ($product['copiers'] <= $filter['copiers_end']))
+                            $match++;
+                        
+                    }else{
+                        if ($product[$key] === $value) $match++;
+                    }
                 
-            if ($match === $keyCount) $result[] = $product;
+                    
+                }
+                    
+                    
+                
+                    
+                if ($match === $keyCount) $result[] = $product;
+            }
+            
+            return $result;
+        }catch (\Exception $ex) {
+            dd($ex);
         }
-        
-        return $result;
     }
-    public static function paginate($items, $perPage = 1, $page = null, $options = [])
+    /** Paginate Array
+     * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */   
+    public static function paginate($items, $per_page = 1, $page = null, $options = [])
     {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $collection = new Collection($items);
+        $currentPageResults =$collection->slice(($currentPage - 1) *$per_page, $per_page)->values();
+        return  new LengthAwarePaginator($currentPageResults, count($collection), $per_page);
+       
     }
     
-  
 }

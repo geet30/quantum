@@ -12,12 +12,13 @@ class VaultsController extends Controller{
     /**
      * Get Vault Listing.
      * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getvaults(Request $request)
     {
-               
+
         try {
             $data = Vaults::getVaultData($request);
             if (!$data) {
@@ -33,6 +34,7 @@ class VaultsController extends Controller{
     /**
      * Get Vault Detail Graph.
      * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -53,6 +55,7 @@ class VaultsController extends Controller{
     /**
      * Get Vault Detail Assets.
      * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -70,9 +73,10 @@ class VaultsController extends Controller{
         }
     }
 
-   /**
+    /**
      * Get Vault Detail Transaction.
      * Author: Geetanjali Sharma
+     * Company: Crebos Nederland B.V.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -88,7 +92,4 @@ class VaultsController extends Controller{
             return errorResponse($e->getMessage(), HTTP_STATUS_SERVER_ERROR, HTTP_ERROR_CODE, __FUNCTION__);
         }
     }
-    
-    
- 
 }
